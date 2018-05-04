@@ -37,7 +37,7 @@ var tempo = 360;
 
 // obj references
 var self = this;
-var audiolet = new Audiolet();
+var audiolet;
 var playingPatternEvent;
 var synth = null;
 var timer;
@@ -264,7 +264,14 @@ Synth = function(audiolet, frequency) {
 };
 extend(Synth, AudioletGroup);
 
+function checkCreateAudiolet(){
+    if(audiolet == null){
+        audiolet = new Audiolet();
+    }
+}
+
 function playTone() {
+    checkCreateAudiolet();
     if (currentState === states.PLAY_TONE) {
         //toggle button to off if already on
         stop();
@@ -290,6 +297,7 @@ function highlightCurrentFreq() {
 }
 
 function playACRN() {
+    checkCreateAudiolet();
     if (currentState === states.PLAY_ACRN) {
         //toggle button to off if already on
         stop();
